@@ -2,11 +2,14 @@
   "name": "electron-quick-start-typescript",
   "version": "1.0.0",
   "description": "A minimal Electron application written with Typescript",
+  "main": "build/main.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js"
+    "start": "npm run build && electron ./build/main.js",
+    "build-electron": "electron-builder -w --dir --config .electron-builder.config.js",
+    "build:view": "ts-node ./build_view.ts"
   },
   "repository": "https://github.com/electron/electron-quick-start-typescript",
   "keywords": [
@@ -17,14 +20,32 @@
     "demo",
     "typescript"
   ],
-  "author": "GitHub",
+  "author": "Andiputraw",
   "license": "CC0-1.0",
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.4",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "ejs": "^3.1.9",
     "electron": "^24.3.0",
+    "electron-builder": "^24.6.3",
     "eslint": "^7.32.0",
+    "sequelize-cli": "^6.6.1",
+    "squirrelly": "^9.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/node": "^20.4.5",
+    "better-sqlite3": "^8.5.0",
+    "sequelize": "^6.32.1",
+    "sqlite3": "^5.1.6"
+  },
+  "build": {
+    "appId": "com.andiputraw.app",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "asar": false
+  }
 }

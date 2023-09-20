@@ -1,14 +1,15 @@
-// All of the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
-window.addEventListener("DOMContentLoaded", () => {
-  const replaceText = (selector: string, text: string) => {
-    const element = document.getElementById(selector);
-    if (element) {
-      element.innerText = text;
-    }
-  };
+import { table } from "console";
 
-  for (const type of ["chrome", "node", "electron"]) {
-    replaceText(`${type}-version`, process.versions[type as keyof NodeJS.ProcessVersions]);
-  }
+const { contextBridge, ipcRenderer } = require("electron");
+
+contextBridge.exposeInMainWorld("database", {
+  getData: (table: string) => ipcRenderer.invoke("get-data", table),
+  getDataById: (table: string, id: number) =>
+    ipcRenderer.invoke("get-data-by-id", table, id),
+  insertDataToTable: (table: string, data: any) =>
+    ipcRenderer.invoke("insert-to-table", table, data),
+  deleteById: (table: string, id: number) =>
+    ipcRenderer.invoke("delete-by-id", table, id),
+  updateTable: (table: string, data: any, id: number) =>
+    ipcRenderer.invoke("update-table", table, data, id),
 });
