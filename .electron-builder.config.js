@@ -14,10 +14,18 @@ module.exports = async function () {
       output: "dist",
       buildResources: "buildResources",
     },
-    files: ["build/**"],
+    files: [
+      "build/**",
+      "models/**",
+      "mogrations/**",
+      "config/**",
+      "assets/**",
+      "./index.html",
+    ],
     msi: {
       oneClick: true,
     },
+    asar: false,
 
     // Specify linux target just for disabling snap compilation
     linux: {
